@@ -1,4 +1,4 @@
-# StudyConnect 🎓 — Peer Tutoring App
+# TutorSoma 🎓 — Peer Tutoring App
 
 CAT 2 · BBIT Year 3.2 · Mobile Application Development · **Theme 3: Education Access and Equity**
 
@@ -8,7 +8,7 @@ understands the material. Help happens through WhatsApp groups and word of mouth
 what they can teach, or when. The result is missed help, double-booked tutors and students falling behind before exams.
 
 ## The solution
-StudyConnect lets students **register as tutors**, **search tutors by subject**, **book one-hour sessions** (with
+TutorSoma lets students **register as tutors**, **search tutors by subject**, **book one-hour sessions** (with
 double-booking prevention), **manage upcoming/past sessions**, find **learning resources** from a public API, and get a
 **reminder notification** 30 minutes before each session.
 
@@ -18,7 +18,7 @@ double-booking prevention), **manage upcoming/past sessions**, find **learning r
 | Kotlin + OOP | Whole project; data classes, sealed interfaces, repositories |
 | Functional UI (forms, lists, validation, loading/empty/error states) | `ui/` (Jetpack Compose, Material 3) |
 | CRUD | Tutors: create/edit/delete (`TutorForm*`, `Profile*`). Bookings: book / reschedule / cancel / delete (`BookSession*`, `Sessions*`) |
-| Data persistence | Room database `studyconnect.db` (`data/local/`) – 3 tables with foreign keys |
+| Data persistence | Room database `TutorSoma.db` (`data/local/`) – 3 tables with foreign keys |
 | Architecture | UI (Compose) → ViewModel → Repository → Room / Retrofit |
 | Navigation | Navigation Compose, 10 destinations, arguments (`tutorId`, `bookingId`), bottom bar, back stack handling |
 | Dynamic lists | `LazyVerticalGrid` (tutors), `LazyColumn` (sessions, resources, my profiles) |
