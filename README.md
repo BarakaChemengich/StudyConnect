@@ -57,11 +57,11 @@ Deleting a tutor cascades to its bookings (`ON DELETE CASCADE`). First launch se
 Run tests: `./gradlew test` (unit) · `./gradlew connectedAndroidTest` (needs a device/emulator).
 
 ## Team
-| Member | Admission no. | Main area |
-|---|---|
-| _name_ | _no._ | 
-|Baraka Chemingich|190278|
-|Michael Maina|190528|
-|Alvin Muchiri|175883|
-|Stanley Mutiga|190056|
-|Michael Wairia|189948| 
+Member	Admission no.
+Baraka Chemingich	190278
+Michael Maina	190528
+Alvin Muchiri	175883
+Stanley Ngugi	190056
+Michael Wairia	189948
+Mitchelle Mengich	189914
+
