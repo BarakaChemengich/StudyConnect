@@ -5,7 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-/** A registered student. Used for login and as the owner of tutor profiles. */
+/** A registered student who can also own tutor profiles. */
 @Entity(
     tableName = "users",
     indices = [Index(value = ["email"], unique = true), Index(value = ["admissionNo"], unique = true)]
@@ -18,7 +18,7 @@ data class User(
     val passwordHash: String
 )
 
-/** A tutor profile: one student offering help in one subject. */
+/** A tutor profile created by a registered student. */
 @Entity(
     tableName = "tutors",
     foreignKeys = [
@@ -41,7 +41,7 @@ data class Tutor(
     val available: Boolean = true
 )
 
-/** A one-hour tutoring session booked by a student with a tutor. */
+/** A one-hour tutoring session booked by a student. */
 @Entity(
     tableName = "bookings",
     foreignKeys = [
