@@ -51,7 +51,11 @@ import com.studyconnect.app.ui.theme.GreenDark
 import com.studyconnect.app.ui.theme.GreenLight
 import com.studyconnect.app.util.DateUtils
 import com.studyconnect.app.util.Subjects
-
+/**
+ * Displays the main dashboard.
+ * Allows students to explore tutors,
+ * search for academic support and view subjects.
+ */
 @Composable
 fun HomeScreen(
     onTutorClick: (Long) -> Unit,
@@ -88,7 +92,7 @@ fun HomeScreen(
                 fontWeight = FontWeight.ExtraBold
             )
             Spacer(Modifier.height(12.dp))
-            SearchField(query, viewModel::onQueryChange)
+            SearchField(query, viewModel::onQueryChange) // Three ways to narrow the list (search text, subject chips, 'Available now') so a student reaches a suitable tutor quickly.
         }
 
         LazyVerticalGrid(
@@ -162,7 +166,7 @@ fun HomeScreen(
                         }
                     } else {
                         items(current.tutors, key = { it.id }) { tutor ->
-                            TutorCard(tutor, onClick = { onTutorClick(tutor.id) })
+                            TutorCard(tutor, onClick = { onTutorClick(tutor.id) }) // The card shows subject, rating and availability, so tutors can be compared without opening each one.
                         }
                     }
                 }

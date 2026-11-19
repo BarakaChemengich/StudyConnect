@@ -38,6 +38,7 @@ import com.studyconnect.app.ui.theme.Green
 import com.studyconnect.app.ui.theme.TextMuted
 import com.studyconnect.app.util.Subjects
 
+// Displays educational resources retrieved through the Open Library API.
 @Composable
 fun ResourcesScreen(viewModel: ResourcesViewModel = viewModel(factory = AppViewModelProvider.Factory)) {
     val state by viewModel.state.collectAsStateWithLifecycle()

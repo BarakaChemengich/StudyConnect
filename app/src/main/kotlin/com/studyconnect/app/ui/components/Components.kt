@@ -68,7 +68,8 @@ import com.studyconnect.app.ui.theme.GreenLight
 import com.studyconnect.app.ui.theme.TextMuted
 import com.studyconnect.app.util.Subjects
 
-/** Green gradient block with rounded bottom corners, drawn behind the status bar (as in the reference UI). */
+/** Green gradient block with rounded bottom corners, drawn behind the status bar (as in the reference UI). consistent appearance across
+ * different screens  */
 @Composable
 fun GradientHeader(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
     Column(
@@ -187,7 +188,7 @@ fun PrimaryButton(
 ) {
     Button(
         onClick = onClick,
-        enabled = enabled && !loading,
+        enabled = enabled && !loading, // Disabled while loading so the user cannot tap twice and create a duplicate record.
         modifier = modifier.fillMaxWidth().height(54.dp),
         shape = RoundedCornerShape(27.dp),
         colors = ButtonDefaults.buttonColors(containerColor = Green)
@@ -292,7 +293,7 @@ fun EmptyState(
         Spacer(Modifier.height(8.dp))
         Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
         Text(message, color = TextMuted, textAlign = TextAlign.Center)
-        if (actionLabel != null && onAction != null) {
+        if (actionLabel != null && onAction != null) {  // An empty list is never a blank screen: it says why and offers the next step.
             Spacer(Modifier.height(12.dp))
             TextButton(onClick = onAction) { Text(actionLabel, color = Green, fontWeight = FontWeight.SemiBold) }
         }
@@ -309,7 +310,7 @@ fun ErrorState(message: String, onRetry: () -> Unit, modifier: Modifier = Modifi
         Spacer(Modifier.height(8.dp))
         Text(message, textAlign = TextAlign.Center)
         Spacer(Modifier.height(12.dp))
-        Button(onClick = onRetry, colors = ButtonDefaults.buttonColors(containerColor = Green)) { Text("Try again") }
+        Button(onClick = onRetry, colors = ButtonDefaults.buttonColors(containerColor = Green)) { Text("Try again") } // Retry lets the user recover from a failed network call without leaving the screen.
     }
 }
 
