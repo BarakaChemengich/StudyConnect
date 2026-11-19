@@ -54,6 +54,8 @@ import com.studyconnect.app.ui.theme.GreenLight
 import com.studyconnect.app.ui.theme.TextMuted
 import kotlinx.coroutines.delay
 
+// Displays the login interface.
+// Collects the user's credentials and provides access to registration.
 @Composable
 fun SplashScreen(
     onFinished: (loggedIn: Boolean) -> Unit,
@@ -115,11 +117,11 @@ fun LoginScreen(
             Text("Welcome Back", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             state.generalError?.let { ErrorBanner(it) }
             AppTextField(
-                value = identifier, onValueChange = { identifier = it }, label = "Email or Admission number",
+                value = identifier, onValueChange = { identifier = it }, label = "Email or Admission number", // Students can log in with whichever they remember: their email or their admission number.
                 leadingIcon = Icons.Filled.Person, keyboardType = KeyboardType.Text, error = state.emailError
             )
             AppTextField(
-                value = password, onValueChange = { password = it }, label = "Password",
+                value = password, onValueChange = { password = it }, label = "Password", // Show/Hide lets the user check what they typed instead of retyping blindly.
                 leadingIcon = Icons.Filled.Lock, isPassword = true, error = state.passwordError,
                 imeAction = ImeAction.Done, onDone = { viewModel.login(identifier, password) }
             )
@@ -133,6 +135,8 @@ fun LoginScreen(
     }
 }
 
+// Displays the registration form for new StudyConnect users.
+// Collects the required user details before creating an account.
 @Composable
 fun RegisterScreen(
     onRegistered: () -> Unit,
@@ -166,7 +170,7 @@ fun RegisterScreen(
             )
             AppTextField(password, { password = it }, "Password", leadingIcon = Icons.Filled.Lock, isPassword = true, error = state.passwordError)
             AppTextField(
-                confirm, { confirm = it }, "Confirm password", leadingIcon = Icons.Filled.Lock, isPassword = true,
+                confirm, { confirm = it }, "Confirm password", leadingIcon = Icons.Filled.Lock, isPassword = true, // A second password field catches typing mistakes at sign-up; a mismatch shows an inline error.
                 error = state.confirmError, imeAction = ImeAction.Done,
                 onDone = { viewModel.register(name, admission, email, password, confirm) }
             )

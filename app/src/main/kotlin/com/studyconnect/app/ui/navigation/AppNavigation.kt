@@ -62,6 +62,7 @@ object Routes {
 
 private data class BottomTab(val route: String, val label: String, val icon: ImageVector)
 
+// Defines the four main destinations shown in the bottom navigation bar.
 private val tabs = listOf(
     BottomTab(Routes.HOME, "Home", Icons.Filled.Home),
     BottomTab(Routes.SESSIONS, "Sessions", Icons.Filled.DateRange),
@@ -69,6 +70,8 @@ private val tabs = listOf(
     BottomTab(Routes.PROFILE, "Profile", Icons.Filled.Person)
 )
 
+// Controls navigation between the different screens of StudyConnect.
+// Also manages the bottom navigation bar and screen transitions.
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
@@ -99,6 +102,7 @@ fun AppNavigation() {
             }
         }
     ) { padding ->
+        // Defines the navigation graph and connects each route to its corresponding screen.
         NavHost(
             navController = navController,
             startDestination = Routes.SPLASH,
