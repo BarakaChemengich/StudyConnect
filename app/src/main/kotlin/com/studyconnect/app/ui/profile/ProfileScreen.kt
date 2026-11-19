@@ -57,6 +57,7 @@ import com.studyconnect.app.ui.theme.Green
 import com.studyconnect.app.ui.theme.TextMuted
 import com.studyconnect.app.util.Subjects
 
+// Displays the user's profile and account information.
 @Composable
 fun ProfileScreen(
     onAddTutor: () -> Unit,

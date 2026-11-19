@@ -51,6 +51,7 @@ import com.studyconnect.app.ui.theme.TextMuted
 import com.studyconnect.app.util.DateUtils
 import java.util.Calendar
 
+// Displays the session booking form.
 @Composable
 fun BookSessionScreen(
     onBack: () -> Unit,
@@ -93,7 +94,7 @@ fun BookSessionScreen(
 
                 Text("When?", fontWeight = FontWeight.SemiBold)
                 OutlinedButton(
-                    onClick = { showDateTimePicker(context, state.startTime, viewModel::onTimePicked) },
+                    onClick = { showDateTimePicker(context, state.startTime, viewModel::onTimePicked) }, // Date and time pickers instead of typed text remove invalid formats; the user can only choose real dates.
                     modifier = Modifier.fillMaxWidth().height(56.dp),
                     shape = RoundedCornerShape(14.dp)
                 ) {

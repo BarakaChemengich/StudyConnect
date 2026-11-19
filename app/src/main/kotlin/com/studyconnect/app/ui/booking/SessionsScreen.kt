@@ -49,6 +49,8 @@ import com.studyconnect.app.util.DateUtils
 
 private enum class SessionMode { UPCOMING, PAST, TEACHING }
 
+// Displays the student's tutoring sessions.
+// Allows users to view and manage their existing bookings.
 @Composable
 fun SessionsScreen(
     onReschedule: (tutorId: Long, bookingId: Long) -> Unit,
@@ -126,6 +128,7 @@ fun SessionsScreen(
     }
 }
 
+// Presents important booking information and available actions.
 @Composable
 private fun SessionCard(
     booking: BookingDetail,
