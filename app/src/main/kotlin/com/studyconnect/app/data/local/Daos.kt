@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+// Provides database operations for user accounts.
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
@@ -38,6 +39,7 @@ interface UserDao {
     fun observeAllUsers(): Flow<List<User>>
 }
 
+// Provides database operations for tutor profiles.
 @Dao
 interface TutorDao {
     @Insert
@@ -81,6 +83,7 @@ private const val DETAIL_SELECT =
             "INNER JOIN tutors t ON t.id = b.tutorId " +
             "INNER JOIN users s ON s.id = b.studentId "
 
+// Provides database operations for tutoring session bookings.
 @Dao
 interface BookingDao {
     @Insert
