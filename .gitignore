@@ -1,4 +1,4 @@
-# Gradle & Build Outputs (Never commit compiled APKs, DEX, or KSP generated files)
+# Gradle & Build Outputs
 .gradle/
 build/
 app/build/
@@ -17,7 +17,7 @@ app/build/
 .idea/deploymentTargetSelector.xml
 *.iml
 
-# Local Environment & Secrets (Contains your specific PC's SDK path & API keys)
+# Local Environment & Secrets
 local.properties
 *.jks
 *.keystore
@@ -36,3 +36,4 @@ Thumbs.db
 captures/
 .externalNativeBuild/
 .cxx/
+.idea/

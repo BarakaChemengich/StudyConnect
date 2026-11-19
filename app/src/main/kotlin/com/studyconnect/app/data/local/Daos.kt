@@ -13,6 +13,12 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(user: User): Long
 
+    @Update
+    suspend fun update(user: User)
+
+    @Delete
+    suspend fun delete(user: User)
+
     @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
     suspend fun findByEmail(email: String): User?
 
@@ -27,6 +33,9 @@ interface UserDao {
 
     @Query("SELECT * FROM users WHERE id = :id")
     fun observeById(id: Long): Flow<User?>
+
+    @Query("SELECT * FROM users ORDER BY name ASC")
+    fun observeAllUsers(): Flow<List<User>>
 }
 
 @Dao
@@ -40,6 +49,9 @@ interface TutorDao {
     @Delete
     suspend fun delete(tutor: Tutor)
 
+    @Query("UPDATE tutors SET name = :newName WHERE ownerId = :ownerId")
+    suspend fun updateTutorNameByOwner(ownerId: Long, newName: String)
+
     @Query("SELECT * FROM tutors WHERE id = :id")
     suspend fun findById(id: Long): Tutor?
 
@@ -48,7 +60,7 @@ interface TutorDao {
 
     @Query(
         "SELECT * FROM tutors WHERE name LIKE '%' || :query || '%' OR subject LIKE '%' || :query || '%' " +
-            "ORDER BY available DESC, rating DESC, name ASC"
+                "ORDER BY available DESC, rating DESC, name ASC"
     )
     fun search(query: String): Flow<List<Tutor>>
 
@@ -57,17 +69,17 @@ interface TutorDao {
 
     @Query(
         "SELECT COUNT(*) FROM tutors WHERE ownerId = :ownerId " +
-            "AND LOWER(subject) = LOWER(:subject) AND id != :excludeId"
+                "AND LOWER(subject) = LOWER(:subject) AND id != :excludeId"
     )
     suspend fun countDuplicate(ownerId: Long, subject: String, excludeId: Long): Int
 }
 
 private const val DETAIL_SELECT =
     "SELECT b.id AS id, b.studentId AS studentId, b.tutorId AS tutorId, t.name AS tutorName, " +
-        "t.subject AS subject, b.startTime AS startTime, b.notes AS notes, b.status AS status, " +
-        "s.name AS studentName FROM bookings b " +
-        "INNER JOIN tutors t ON t.id = b.tutorId " +
-        "INNER JOIN users s ON s.id = b.studentId "
+            "t.subject AS subject, b.startTime AS startTime, b.notes AS notes, b.status AS status, " +
+            "s.name AS studentName FROM bookings b " +
+            "INNER JOIN tutors t ON t.id = b.tutorId " +
+            "INNER JOIN users s ON s.id = b.studentId "
 
 @Dao
 interface BookingDao {
@@ -95,14 +107,14 @@ interface BookingDao {
     /** Counts BOOKED sessions of this tutor that overlap [start, end). */
     @Query(
         "SELECT COUNT(*) FROM bookings WHERE tutorId = :tutorId AND status = 'BOOKED' " +
-            "AND startTime < :end AND (startTime + 3600000) > :start AND id != :excludeId"
+                "AND startTime < :end AND (startTime + 3600000) > :start AND id != :excludeId"
     )
     suspend fun countTutorConflicts(tutorId: Long, start: Long, end: Long, excludeId: Long): Int
 
     /** Counts BOOKED sessions of this student that overlap [start, end). */
     @Query(
         "SELECT COUNT(*) FROM bookings WHERE studentId = :studentId AND status = 'BOOKED' " +
-            "AND startTime < :end AND (startTime + 3600000) > :start AND id != :excludeId"
+                "AND startTime < :end AND (startTime + 3600000) > :start AND id != :excludeId"
     )
     suspend fun countStudentConflicts(studentId: Long, start: Long, end: Long, excludeId: Long): Int
 }

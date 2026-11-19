@@ -21,7 +21,7 @@ class AppContainer(context: Context) {
     val session = SessionManager(context)
     val reminderScheduler = ReminderScheduler(context)
 
-    val authRepository = AuthRepository(database.userDao(), session)
+    val authRepository = AuthRepository(database.userDao(), database.tutorDao(), session)
     val tutorRepository = TutorRepository(database.tutorDao())
     val bookingRepository = BookingRepository(database.bookingDao(), database.tutorDao())
 

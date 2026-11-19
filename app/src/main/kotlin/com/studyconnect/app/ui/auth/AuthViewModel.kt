@@ -17,6 +17,7 @@ data class AuthFormState(
     val emailError: String? = null,
     val passwordError: String? = null,
     val confirmError: String? = null,
+    val subjectError: String? = null,
     val generalError: String? = null,
     val success: Boolean = false
 )
@@ -44,23 +45,45 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
-    fun register(name: String, admissionNo: String, email: String, password: String, confirm: String) {
+    fun register(
+        name: String,
+        admissionNo: String,
+        email: String,
+        password: String,
+        confirm: String,
+        registerAsTutor: Boolean = false,
+        tutorSubject: String = "",
+        tutorBio: String = ""
+    ) {
+        val subjectErr = if (registerAsTutor) Validators.subject(tutorSubject) else null
         val form = AuthFormState(
             nameError = Validators.name(name),
             admissionError = Validators.admission(admissionNo),
             emailError = Validators.email(email),
             passwordError = Validators.password(password),
-            confirmError = Validators.confirmPassword(password, confirm)
+            confirmError = Validators.confirmPassword(password, confirm),
+            subjectError = subjectErr
         )
-        val hasError = listOf(form.nameError, form.admissionError, form.emailError, form.passwordError, form.confirmError)
-            .any { it != null }
+        val hasError = listOf(
+            form.nameError,
+            form.admissionError,
+            form.emailError,
+            form.passwordError,
+            form.confirmError,
+            form.subjectError
+        ).any { it != null }
+
         if (hasError) {
             _state.value = form
             return
         }
         _state.value = AuthFormState(loading = true)
         viewModelScope.launch {
-            _state.value = when (val result = repository.register(name, admissionNo, email, password)) {
+            val subjectToSave = if (registerAsTutor) tutorSubject else ""
+            val bioToSave = if (registerAsTutor) tutorBio else ""
+            _state.value = when (
+                val result = repository.register(name, admissionNo, email, password, subjectToSave, bioToSave)
+            ) {
                 is AppResult.Success -> AuthFormState(success = true)
                 is AppResult.Failure -> AuthFormState(generalError = result.message)
             }
