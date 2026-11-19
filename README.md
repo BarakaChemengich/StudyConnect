@@ -58,5 +58,10 @@ Run tests: `./gradlew test` (unit) · `./gradlew connectedAndroidTest` (needs a 
 
 ## Team
 | Member | Admission no. | Main area |
-|---|---|---|
-| _name_ | _no._ | _see docs/CAT2_GUIDE.md §3_ |
+|---|---|
+| _name_ | _no._ | 
+|Baraka Chemingich|190278|
+|Michael Maina|190528|
+|Alvin Muchiri|175883|
+|Stanley Mutiga|190056|
+|Michael Wairia|189948| 
