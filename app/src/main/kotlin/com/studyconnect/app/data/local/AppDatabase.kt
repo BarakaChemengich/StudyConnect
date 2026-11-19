@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+// Defines the Room database and the entities used by the application.
 @Database(
     entities = [User::class, Tutor::class, Booking::class],
     version = 1,
@@ -16,9 +17,12 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun bookingDao(): BookingDao
 
     companion object {
+
+        // Holds the single database instance shared across the application.
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
+        // Returns the existing database instance or creates one if it does not exist.
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -31,7 +35,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        // Kept as alias if your Repository/Application currently calls AppDatabase.build(context)
+        // Maintains compatibility with existing calls to AppDatabase.build(context).
         fun build(context: Context): AppDatabase = getInstance(context)
     }
 }
