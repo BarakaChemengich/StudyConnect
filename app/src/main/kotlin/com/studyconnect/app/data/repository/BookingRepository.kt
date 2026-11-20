@@ -50,10 +50,13 @@ class BookingRepository(private val bookingDao: BookingDao, private val tutorDao
 
     private suspend fun checkConflicts(studentId: Long, tutorId: Long, start: Long, excludeId: Long): String? {
         val end = start + Booking.DURATION_MS
-        if (bookingDao.countTutorConflicts(tutorId, start, end, excludeId) > 0) {
+        val duration = Booking.DURATION_MS
+
+        // Pass duration into the DAO functions
+        if (bookingDao.countTutorConflicts(tutorId, start, end, duration, excludeId) > 0) {
             return "That tutor is already booked at this time. Pick another slot."
         }
-        if (bookingDao.countStudentConflicts(studentId, start, end, excludeId) > 0) {
+        if (bookingDao.countStudentConflicts(studentId, start, end, duration, excludeId) > 0) {
             return "You already have a session at this time."
         }
         return null

@@ -88,6 +88,13 @@ class AuthRepository(
         return AppResult.Success(Unit)
     }
 
+    suspend fun deleteAccount(userId: Long): AppResult<Unit> {
+        val existing = userDao.findById(userId) ?: return AppResult.Failure("User not found")
+        userDao.delete(existing)
+        session.clear()
+        return AppResult.Success(Unit)
+    }
+
     suspend fun login(identifier: String, password: String): AppResult<User> {
         val cleanIdentifier = identifier.trim()
         val user = userDao.findByEmailOrAdmission(cleanIdentifier)

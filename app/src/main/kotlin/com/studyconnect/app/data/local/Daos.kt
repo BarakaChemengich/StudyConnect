@@ -110,14 +110,18 @@ interface BookingDao {
     /** Counts BOOKED sessions of this tutor that overlap [start, end). */
     @Query(
         "SELECT COUNT(*) FROM bookings WHERE tutorId = :tutorId AND status = 'BOOKED' " +
-                "AND startTime < :end AND (startTime + 3600000) > :start AND id != :excludeId"
+                "AND startTime < :end AND (startTime + :durationMs) > :start AND id != :excludeId"
     )
-    suspend fun countTutorConflicts(tutorId: Long, start: Long, end: Long, excludeId: Long): Int
+    suspend fun countTutorConflicts(
+        tutorId: Long, start: Long, end: Long, durationMs: Long, excludeId: Long
+    ): Int
 
     /** Counts BOOKED sessions of this student that overlap [start, end). */
     @Query(
         "SELECT COUNT(*) FROM bookings WHERE studentId = :studentId AND status = 'BOOKED' " +
-                "AND startTime < :end AND (startTime + 3600000) > :start AND id != :excludeId"
+                "AND startTime < :end AND (startTime + :durationMs) > :start AND id != :excludeId"
     )
-    suspend fun countStudentConflicts(studentId: Long, start: Long, end: Long, excludeId: Long): Int
+    suspend fun countStudentConflicts(
+        studentId: Long, start: Long, end: Long, durationMs: Long, excludeId: Long
+    ): Int
 }

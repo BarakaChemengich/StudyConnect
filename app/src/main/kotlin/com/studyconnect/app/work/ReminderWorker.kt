@@ -26,8 +26,9 @@ class ReminderWorker(appContext: Context, params: WorkerParameters) : CoroutineW
 
         val app = applicationContext as StudyConnectApp
         val booking = app.container.bookingRepository.findDetail(bookingId) ?: return Result.success()
+
         if (booking.status != Booking.BOOKED) return Result.success()
-        if (booking.startTime + Booking.DURATION_MS < System.currentTimeMillis()) return Result.success()
+        if (booking.startTime <= System.currentTimeMillis()) return Result.success()
 
         NotificationHelper.show(
             applicationContext,
